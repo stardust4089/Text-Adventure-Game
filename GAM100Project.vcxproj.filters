@@ -79,6 +79,9 @@
     <ClCompile Include="Source\MirrorFunctions.c">
       <Filter>World Data\Item Functions</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Corpse.c">
+      <Filter>World Data\Item Functions</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\CommandContext.h">
@@ -175,6 +178,9 @@
       <Filter>World Data\Item Functions</Filter>
     </ClInclude>
     <ClInclude Include="Source\MirrorFunctions.h">
+      <Filter>World Data\Item Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Corpse.h">
       <Filter>World Data\Item Functions</Filter>
     </ClInclude>
   </ItemGroup>

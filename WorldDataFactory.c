@@ -19,6 +19,7 @@ This could be used to create default states as well as loaded state.
 #include "GoldPieceFunctions.h" /* GoldPiece_Build */
 #include "ExitDoorFunctions.h" /* ExitDoor_Build */
 #include "MirrorFunctions.h" /*Mirror_Build*/
+#include "Corpse.h" /*Corpse_Build*/
 
 
 
@@ -73,19 +74,21 @@ Room* Room1_Build()
 	/* Pre-declare a room pointer which we will use to build the new room */
 	Room* room = NULL;
 	/* TODO REQUIRED: Call Room_Create with the Room 1 description: */
-	room = Room_Create("This is room 1. The room is faintly lit by some torches bound to sconces in the wall.\n");
+	room = Room_Create("This is room 1. The room is faintly lit by some torches bound to sconces in the wall. The room reeks of rotton flesh, as you immediatly notice a corpse holding a mirror, its face stuck in an expression of terror as it gazes into the glass.\n");
 
 	/* TODO REQUIRED: Add an Exit "through the mirror" to Room 2 */
 	/* TODO BASIC: Add exit shortcuts for "through mirror" and "mirror" */
-	Room_AddRoomExit(room, "through the mirror", 2);
-	Room_AddRoomExitShortcut(room, "through mirror", 2);
-
+	Room_AddRoomExit(room, "north left", 2);
+	Room_AddRoomExitShortcut(room, "nl", 2);
+	Room_AddRoomExit(room, "north right", 2);
+	Room_AddRoomExitShortcut(room, "nr", 2);
 	/* TODO REQUIRED: Add an Exit "south" back to Room 0 */
 	Room_AddRoomExit(room, "south", 0);
 	/* TODO BASIC: Add room exit shortcut for "s" */
 	Room_AddRoomExitShortcut(room, "s", 0);
 	/* TODO REQUIRED: Add a brick to the list of items in the room */
-	
+	ItemList_AddItem(Room_GetItemList(room), Mirror_Build());
+	ItemList_AddItem(Room_GetItemList(room), Corpse_Build());
 	/* return the new room */
 	return room;
 }

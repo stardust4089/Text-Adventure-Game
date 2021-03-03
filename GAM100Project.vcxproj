@@ -84,6 +84,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Corpse.h" />
     <ClInclude Include="Source\MirrorFunctions.h" />
     <ClInclude Include="Source\RustedKeyFunctions.h" />
     <ClInclude Include="Source\CommandContext.h" />
@@ -120,6 +121,7 @@
   <ItemGroup>
     <ClCompile Include="CommandListFactory.c" />
     <ClCompile Include="main.c" />
+    <ClCompile Include="Source\Corpse.c" />
     <ClCompile Include="Source\MirrorFunctions.c" />
     <ClCompile Include="Source\RustedKeyFunctions.c" />
     <ClCompile Include="Source\CommandHandler.c" />

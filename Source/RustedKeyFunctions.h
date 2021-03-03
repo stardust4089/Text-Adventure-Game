@@ -14,4 +14,4 @@ typedef struct Item Item;
 
 
 /* Build a "brick" object */
-Item* Brick_Build();
+Item* RustedKey_Build();

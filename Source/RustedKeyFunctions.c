@@ -1,7 +1,7 @@
 /******************************************************************************
 filename    BrickFunctions.c
-author      Matthew Picioccio
-DP email    mattpic@digipen.edu
+author      Thomas Allen
+DP email    thomas.allen@digipen.edu
 course      GAM100 ** Do not use this code in your team project
 
 Brief Description:
@@ -9,7 +9,7 @@ This file defines the functions to create a specific item, the "brick".
 
 ******************************************************************************/
 #include "stdafx.h" /* UNREFERENCED_PARAMETER, NULL*/
-#include "BrickFunctions.h" /* Function declarations */
+#include "RustedKeyFunctions.h" /* Function declarations */
 #include "GameState.h" /* struct GameState, GameState_ChangeScore */
 #include "GameFlags.h" /* GameFlags_IsInList */
 #include "WorldData.h" /* WorldData_GetRoom */
@@ -20,7 +20,7 @@ This file defines the functions to create a specific item, the "brick".
 
 
 /* Helper: The action performed when the brick is taken. */
-void Brick_Take(CommandContext context, GameState* gameState, WorldData* worldData)
+void RustedKey_Take(CommandContext context, GameState* gameState, WorldData* worldData)
 {
 	/* avoid W4 warnings on unused parameters - this function conforms to a function typedef */
 	UNREFERENCED_PARAMETER(context);
@@ -28,12 +28,12 @@ void Brick_Take(CommandContext context, GameState* gameState, WorldData* worldDa
 	UNREFERENCED_PARAMETER(worldData);
 
 	/* Give the user a hint about how the brick might be used, whenever it is picked up. */
-	printf("The brick feels heavy in your hand.\n");
+	printf("The key is old and rusted. It feels strangly dense for its size.\n");
 }
 
 
 /* Helper: The action performed when the brick is used. */
-void Brick_Use(CommandContext context, GameState* gameState, WorldData* worldData)
+void RustedKey_Use(CommandContext context, GameState* gameState, WorldData* worldData)
 {
 	Room* room; /* The current room */
 	ItemList** roomItemsPtr; /* The list of items in the current room */
@@ -49,7 +49,7 @@ void Brick_Use(CommandContext context, GameState* gameState, WorldData* worldDat
 	if (context != CommandContext_Item_Inventory)
 	{
 		/* the user doesn't have the brick - inform the user of the problem and take no action */
-		printf("You must have the brick before you can use it.\n");
+		printf("You must have the key before you can use it.\n");
 		return;
 	}
 
@@ -57,7 +57,7 @@ void Brick_Use(CommandContext context, GameState* gameState, WorldData* worldDat
 	if (gameState->currentRoomIndex != 0)
 	{
 		/* we are not in the right room - inform the user of the problem and take no action */
-		printf("You cannot use the brick here.\n");
+		printf("You cannot use the key here.\n");
 		return;
 	}
 
@@ -65,7 +65,7 @@ void Brick_Use(CommandContext context, GameState* gameState, WorldData* worldDat
 	if (GameFlags_IsInList(gameState->gameFlags, "cageBrokenScored"))
 	{
 		/* the player already used the brick - inform the user of the problem and take no action */
-		printf("You already used the brick here.\n");
+		printf("You already used the key here.\n");
 		return;
 	}
 	else
@@ -87,13 +87,13 @@ void Brick_Use(CommandContext context, GameState* gameState, WorldData* worldDat
 		gameState->inventory = ItemList_Remove(gameState->inventory, brick);
 
 		/* Tell the user what they did */
-		printf("You smash the cage open with the brick, and the brick crumbles.  You can now reach the small egg inside.\n");
+		printf("You insert the key into the lock. With a creaking and shuddering, teh ancient lock clicks open and the door swings open.\n");
 
 		/* Add to the player's score */
 		GameState_ChangeScore(gameState, 10);
 
 		/* Update the room description to reflect the change in the room */
-		Room_SetDescription(room, "This is room 0.  You are in a display room.  There is a broken cage here.\n");
+		Room_SetDescription(room, "This is room 0.  You are in a display room.  There is an unlocked door here.\n");
 
 		/* Add an egg to the current room, since the cage has been bashed open */
 		*roomItemsPtr = ItemList_Add(*roomItemsPtr, Egg_Build());
@@ -105,8 +105,8 @@ void Brick_Use(CommandContext context, GameState* gameState, WorldData* worldDat
 
 
 /* Build a "brick" object */
-Item* Brick_Build()
+Item* RustedKey_Build()
 {
 	/* Create a "brick" item, using the functions defined in this file */
-	return Item_Create("brick", "A small red brick of indeterminate origin", true, Brick_Use, Brick_Take, NULL);
+	return Item_Create("Rusted Iron Key", "A small rusted and corroded key.", true, RustedKey_Use, RustedKey_Take, NULL);
 }

@@ -84,7 +84,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Source\BrickFunctions.h" />
+    <ClInclude Include="Source\RustedKeyFunctions.h" />
     <ClInclude Include="Source\CommandContext.h" />
     <ClInclude Include="Source\CommandData.h" />
     <ClInclude Include="Source\CommandHandler.h" />
@@ -119,7 +119,7 @@
   <ItemGroup>
     <ClCompile Include="CommandListFactory.c" />
     <ClCompile Include="main.c" />
-    <ClCompile Include="Source\BrickFunctions.c" />
+    <ClCompile Include="Source\RustedKeyFunctions.c" />
     <ClCompile Include="Source\CommandHandler.c" />
     <ClCompile Include="Source\CommandList.c" />
     <ClCompile Include="Source\DropCommandHandler.c" />

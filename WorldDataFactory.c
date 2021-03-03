@@ -18,6 +18,7 @@ This could be used to create default states as well as loaded state.
 #include "RustedKeyFunctions.h" /* Brick_Build */
 #include "GoldPieceFunctions.h" /* GoldPiece_Build */
 #include "ExitDoorFunctions.h" /* ExitDoor_Build */
+#include "MirrorFunctions.h" /*Mirror_Build*/
 
 
 
@@ -54,15 +55,11 @@ Room* Room0_Build()
 	Room* room = NULL;
 
 	/* TODO REQUIRED: Call Room_Create with the Room 1 description: */
-	room = Room_Create("This is room 0. It is a display room with a cage in the middle. You can see a jeweled egg inside the cage.  There is a crack in the west wall, but you can't fit through it from this side.\n");
+	room = Room_Create(" This is room 0. You awake in a cell. Around you, you hear chains rattling and the sounds of wind gusts, even though you appear to be underground. There is a key on a stone table. You may be able to reach the key and unlock your cell.\n");
 
-	/* TODO REQUIRED: Add an Exit "north" to Room 1 */
-	Room_AddRoomExit(room, "north", 1);
-	/* TODO BASIC: Add room exit shortcut for "n" */
-	Room_AddRoomExitShortcut(room, "n", 1);
-	/* TODO REQUIRED: add an exit door to the list of items in the room, ExitDoor_Build() */
-	ItemList_AddItem(Room_GetItemList(room), ExitDoor_Build());
 	
+	/* TODO REQUIRED: add an exit door to the list of items in the room, ExitDoor_Build() */
+	ItemList_AddItem(Room_GetItemList(room), RustedKey_Build());
 	/* TODO ADVANCED: (not required) update the description and add a room exit to the "east" */
 
 	/* return the new room */
@@ -76,7 +73,7 @@ Room* Room1_Build()
 	/* Pre-declare a room pointer which we will use to build the new room */
 	Room* room = NULL;
 	/* TODO REQUIRED: Call Room_Create with the Room 1 description: */
-	room = Room_Create("This is room 1.  There is a large mirror here, and it shimmers as you approach.\n");
+	room = Room_Create("This is room 1. The room is faintly lit by some torches bound to sconces in the wall.\n");
 
 	/* TODO REQUIRED: Add an Exit "through the mirror" to Room 2 */
 	/* TODO BASIC: Add exit shortcuts for "through mirror" and "mirror" */
@@ -88,7 +85,7 @@ Room* Room1_Build()
 	/* TODO BASIC: Add room exit shortcut for "s" */
 	Room_AddRoomExitShortcut(room, "s", 0);
 	/* TODO REQUIRED: Add a brick to the list of items in the room */
-	ItemList_AddItem(Room_GetItemList(room), RustedKey_Build());
+	
 	/* return the new room */
 	return room;
 }

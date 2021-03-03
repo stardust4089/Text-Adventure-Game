@@ -38,7 +38,6 @@ void RustedKey_Use(CommandContext context, GameState* gameState, WorldData* worl
 	Room* room; /* The current room */
 	ItemList** roomItemsPtr; /* The list of items in the current room */
 	Item* brick; /* The brick in the player's inventory */
-
 	/* safety check on the parameters */
 	if ((gameState == NULL) || (worldData == NULL))
 	{
@@ -49,7 +48,7 @@ void RustedKey_Use(CommandContext context, GameState* gameState, WorldData* worl
 	if (context != CommandContext_Item_Inventory)
 	{
 		/* the user doesn't have the brick - inform the user of the problem and take no action */
-		printf("You must have the key before you can use it.\n");
+		printf("You must have a key before you can use it.\n");
 		return;
 	}
 
@@ -87,17 +86,18 @@ void RustedKey_Use(CommandContext context, GameState* gameState, WorldData* worl
 		gameState->inventory = ItemList_Remove(gameState->inventory, brick);
 
 		/* Tell the user what they did */
-		printf("You insert the key into the lock. With a creaking and shuddering, teh ancient lock clicks open and the door swings open.\n");
+		printf("You insert the key into the lock. With a creaking and shuddering, the ancient lock clicks open and the door swings open.\nYou may now use the north door.\n");
 
 		/* Add to the player's score */
 		GameState_ChangeScore(gameState, 10);
 
 		/* Update the room description to reflect the change in the room */
-		Room_SetDescription(room, "This is room 0.  You are in a display room.  There is an unlocked door here.\n");
+		Room_SetDescription(room, "This is room 0.  There is an unlocked prision door here.\n");
 
-		/* Add an egg to the current room, since the cage has been bashed open */
-		*roomItemsPtr = ItemList_Add(*roomItemsPtr, Egg_Build());
-
+		/* Add the exit door to the room, as now the cage in unlocked.*/
+		Room_AddRoomExit(room, "north", 1);
+		/* TODO BASIC: Add room exit shortcut for "n" */
+		Room_AddRoomExitShortcut(room, "n", 1);
 		/* the gold piece has not been scored, so mark the flag */
 		gameState->gameFlags = GameFlags_Add(gameState->gameFlags, "cageBrokenScored");
 	}
@@ -108,5 +108,5 @@ void RustedKey_Use(CommandContext context, GameState* gameState, WorldData* worl
 Item* RustedKey_Build()
 {
 	/* Create a "brick" item, using the functions defined in this file */
-	return Item_Create("Rusted Iron Key", "A small rusted and corroded key.", true, RustedKey_Use, RustedKey_Take, NULL);
+	return Item_Create("rusted key", "A small rusted and corroded key.", true, RustedKey_Use, RustedKey_Take, NULL);
 }

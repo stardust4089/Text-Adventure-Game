@@ -84,7 +84,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Source\BronzeKeyFunctions.h" />
+    <ClInclude Include="Source\Candleabra.h" />
     <ClInclude Include="Source\Corpse.h" />
+    <ClInclude Include="Source\GoldKeyFunctions.h" />
+    <ClInclude Include="Source\KnightCorpse.h" />
     <ClInclude Include="Source\MirrorFunctions.h" />
     <ClInclude Include="Source\RustedKeyFunctions.h" />
     <ClInclude Include="Source\CommandContext.h" />
@@ -111,7 +115,9 @@
     <ClInclude Include="Source\QuitCommandHandler.h" />
     <ClInclude Include="Source\Room.h" />
     <ClInclude Include="Source\RoomExit.h" />
+    <ClInclude Include="Source\SilverKeyFunctions.h" />
     <ClInclude Include="Source\stdafx.h" />
+    <ClInclude Include="Source\Sword.h" />
     <ClInclude Include="Source\TakeCommandHandler.h" />
     <ClInclude Include="Source\targetver.h" />
     <ClInclude Include="Source\UseCommandHandler.h" />
@@ -121,7 +127,11 @@
   <ItemGroup>
     <ClCompile Include="CommandListFactory.c" />
     <ClCompile Include="main.c" />
+    <ClCompile Include="Source\BronzeKeyFunctions.c" />
+    <ClCompile Include="Source\Candleabra.c" />
     <ClCompile Include="Source\Corpse.c" />
+    <ClCompile Include="Source\GoldKeyFunctions.c" />
+    <ClCompile Include="Source\KnightCorpse.c" />
     <ClCompile Include="Source\MirrorFunctions.c" />
     <ClCompile Include="Source\RustedKeyFunctions.c" />
     <ClCompile Include="Source\CommandHandler.c" />
@@ -143,7 +153,9 @@
     <ClCompile Include="Source\QuitCommandHandler.c" />
     <ClCompile Include="Source\Room.c" />
     <ClCompile Include="Source\RoomExit.c" />
+    <ClCompile Include="Source\SilverKeyFunctions.c" />
     <ClCompile Include="Source\stdafx.c" />
+    <ClCompile Include="Source\Sword.c" />
     <ClCompile Include="Source\TakeCommandHandler.c" />
     <ClCompile Include="Source\UseCommandHandler.c" />
     <ClCompile Include="Source\WorldData.c" />

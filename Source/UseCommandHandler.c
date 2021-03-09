@@ -40,6 +40,8 @@ void HandleUseCommand(CommandData* command, GameState* gameState, WorldData* wor
 	{
 		/* the item was found in the user's inventory, so we're going to use the Inventory context*/
 		useContext = CommandContext_Item_Inventory;
+		if (gameState->currentRoomIndex == 3)
+			GameState_ChangeGhostPos(gameState, 1);
 	}
 	else
 	{
@@ -57,6 +59,10 @@ void HandleUseCommand(CommandData* command, GameState* gameState, WorldData* wor
 			/* the item was found in the room, so we're going to use the Room context */
 			useContext = CommandContext_Item_Room;
 		}
+		if (gameState->currentRoomIndex != 3)
+			printf("");
+		else
+			GameState_ChangeGhostPos(gameState, 1);
 	}
 
 	/* check if the item has been found anywhere */
@@ -64,6 +70,7 @@ void HandleUseCommand(CommandData* command, GameState* gameState, WorldData* wor
 	{
 		/* the item was not found - inform the user of the problem and take no action */
 		printf("You do not see a %s here.", command->noun);
+		GameState_ChangeGhostPos(gameState, 1);
 		return;
 	}
 
@@ -73,6 +80,7 @@ void HandleUseCommand(CommandData* command, GameState* gameState, WorldData* wor
 	{
 		/* no "use" function was defined, so the item cannot be used - inform the user of the problem and take no action*/
 		printf("You cannot use a %s here.", command->noun);
+		GameState_ChangeGhostPos(gameState, 1);
 		return;
 	}
 

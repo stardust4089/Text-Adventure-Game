@@ -41,6 +41,10 @@ void HandleLookCommand(CommandData* command, GameState* gameState, WorldData* wo
 		/* if we have a room (and we always should), print its description */
 		if (room != NULL)
 		{
+			if (gameState->currentRoomIndex != 3)
+				printf("");
+			else
+				GameState_ChangeGhostPos(gameState, 1);
 			printf("(looking at the room)\n"); /* clarify the target for the user */
 			Room_Print(room);
 		}
@@ -51,6 +55,10 @@ void HandleLookCommand(CommandData* command, GameState* gameState, WorldData* wo
 	item = ItemList_FindItem(gameState->inventory, command->noun);
 	if (item != NULL)
 	{
+		if (gameState->currentRoomIndex != 3)
+			printf("");
+		else
+			GameState_ChangeGhostPos(gameState, 1);
 		printf("(in your inventory)\n"); /* clarify the target for the user */
 		/* an item matching the noun was found in the user's inventory - print its description */
 		Item_Print(item);
@@ -68,6 +76,10 @@ void HandleLookCommand(CommandData* command, GameState* gameState, WorldData* wo
 	item = ItemList_FindItem(*roomItemsPtr, command->noun);
 	if (item != NULL)
 	{
+		if (gameState->currentRoomIndex != 3)
+			printf("");
+		else
+			GameState_ChangeGhostPos(gameState, 1);
 		printf("(in the room)\n"); /* clarify the target for the user */
 		/* an item matching the noun was found in the current room - print its description */
 		Item_Print(item); 
@@ -75,5 +87,7 @@ void HandleLookCommand(CommandData* command, GameState* gameState, WorldData* wo
 	}
 
 	/* the noun didn't match an available item, so inform the user that there is no match */
+	GameState_ChangeGhostPos(gameState, 1);
 	printf("You do not see a %s here.", command->noun);
+	
 }

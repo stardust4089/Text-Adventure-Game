@@ -24,7 +24,7 @@ typedef struct GameState
 {
 	/* the user's score */
 	int score;
-
+	int ghostLevel;
 	/* the user's flags */
 	GameFlags* gameFlags;
 
@@ -47,5 +47,9 @@ void GameState_Free(GameState** gameStatePtr);
 /* Modify the score, with appropriate user information */
 void GameState_ChangeScore(GameState* gameState, int modifier);
 
+
 /* End the game, with appropriate user information */
 void GameState_EndGame(GameState* gameState, const char* message);
+
+void GameState_ChangeGhostPos(GameState* gameState, int modifier);
+

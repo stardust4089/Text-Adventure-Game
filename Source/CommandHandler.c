@@ -12,7 +12,7 @@ This file implements the command handler, parsing commands and executing functio
 #include "CommandHandler.h" /* Function declarations */
 #include "CommandData.h" /* struct CommandData */
 #include "CommandList.h" /* struct CommandList and CommandList_Find */
-
+#include "GameState.h"
 
 /* Handles the command data and executes it against the game and world state */
 void HandleCommand(CommandData* command, GameState* gameState, WorldData* worldData)
@@ -29,6 +29,7 @@ void HandleCommand(CommandData* command, GameState* gameState, WorldData* worldD
 	if (command->verb == NULL)
 	{
 		printf("Your command was not recognized.\n");
+		GameState_ChangeGhostPos(gameState, 1);
 		return;
 	}
 
@@ -39,6 +40,7 @@ void HandleCommand(CommandData* command, GameState* gameState, WorldData* worldD
 	if (commandFunc == NULL)
 	{
 		printf("Your command \"%s\" was not recognized.\n", command->verb);
+		GameState_ChangeGhostPos(gameState, 1);
 		return; /* take no action if the command function wasn't found */
 	}
 

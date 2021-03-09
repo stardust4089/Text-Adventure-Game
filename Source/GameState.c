@@ -14,7 +14,6 @@ in the game.
 #include "ItemList.h" /* ItemList_Free */
 #include "GameFlags.h" /* GameFlags_Free */
 
-
 /* Create an empty game state object */
 GameState* GameState_Create()
 {
@@ -29,6 +28,7 @@ GameState* GameState_Create()
 
 	/* assign empty values to all members */
 	gameState->score = 0;
+	gameState->ghostLevel = 0;
 	gameState->currentRoomIndex = 0;
 	gameState->inventory = NULL;
 	gameState->gameFlags = NULL;
@@ -96,6 +96,56 @@ void GameState_ChangeScore(GameState* gameState, int modifier)
 	printf("Your new score is %d.\n", gameState->score);
 }
 
+
+/* Modify the score, with appropriate user information */
+void GameState_ChangeGhostPos(GameState* gameState, int modifier)
+{
+	/* safety check on the parameters */
+	if (gameState == NULL)
+	{
+		return; /* take no action if the parameters are invalid */
+	}
+
+	/* check if any action is needed*/
+	if (modifier == 0)
+	{
+		return; /* no action needed */
+	}
+	/* modify the score */
+	gameState->ghostLevel += modifier;
+	
+	if (gameState->currentRoomIndex != 3)
+	{
+	
+		if (gameState->ghostLevel == 1)
+			printf("There is a slight wooshing sound as your mind fumbles, almost like something is creeping up on you.\n");
+		if (gameState->ghostLevel == 2)
+			printf("The sound of rattling chains continues to get louder. It seems the ghosts are drawing nearer!\n");
+		if (gameState->ghostLevel >= 3)
+		{
+			printf("Due to your fumbling, the ghosts have finally caught up to you. You mind fills with their screams, and then everything goes black.\n");
+			GameState_EndGame(gameState, "							YOU LOSE\n\n\n");
+		}
+		
+	}
+	else
+	{
+		if (gameState->ghostLevel < 0)
+			gameState->ghostLevel = 0;
+		if (gameState->ghostLevel == 1)
+			printf("The ghost draws ever closer!\n");
+		if (gameState->ghostLevel == 2)
+			printf("Your mind is dominated by fear as the ghost stares into your being, drawing closer and closer!\n");
+		if (gameState->ghostLevel >= 3)
+		{
+			printf("Due to your fumbling, the ghost caught up to you. You mind fills with it's screeches, and then everything goes black.\n");
+			GameState_EndGame(gameState, "							YOU LOSE\n\n\n");
+			return;
+		}
+	}
+	
+
+}
 
 /* End the game, with appropriate user information */
 void GameState_EndGame(GameState* gameState, const char* message)

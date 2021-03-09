@@ -20,9 +20,11 @@ This could be used to create default states as well as loaded state.
 #include "ExitDoorFunctions.h" /* ExitDoor_Build */
 #include "MirrorFunctions.h" /*Mirror_Build*/
 #include "Corpse.h" /*Corpse_Build*/
-
-
-
+#include "GameFlags.h" /*Gamefalgs_Add*/
+#include "Candleabra.h" /*Candleabra_Build*/
+#include "KnightCorpse.h"
+#include "Sword.h"
+#include "GameState.h"
 /******************************************************************************
 	Build room TEMPLATE
     Use this example function to build additional rooms
@@ -79,9 +81,7 @@ Room* Room1_Build()
 	/* TODO REQUIRED: Add an Exit "through the mirror" to Room 2 */
 	/* TODO BASIC: Add exit shortcuts for "through mirror" and "mirror" */
 	Room_AddRoomExit(room, "north left", 2);
-	Room_AddRoomExitShortcut(room, "nl", 2);
-	Room_AddRoomExit(room, "north right", 2);
-	Room_AddRoomExitShortcut(room, "nr", 2);
+	Room_AddRoomExit(room, "north right", 3);
 	/* TODO REQUIRED: Add an Exit "south" back to Room 0 */
 	Room_AddRoomExit(room, "south", 0);
 	/* TODO BASIC: Add room exit shortcut for "s" */
@@ -97,25 +97,33 @@ Room* Room1_Build()
 /* TODO REQUIRED: Build room 2 */
 Room* Room2_Build()
 {
-	/* TODO: Pre-declare a room pointer which we will use to build the new room */
 	Room* room = NULL;
 
-	/* TODO REQUIRED: Call Room_Create with the Room 2 description:*/
-	room = Room_Create("This is room 2.  The room is isolated from the others, but you can see a crack in the east wall, just large enough to get through.\n");
+	room = Room_Create("This is room 2.  Within the room, there are 3 candles in a large candleabra. Just beyond lies 2 locked doors, one with a silver and one with a bronze lock.\n");
 
-	/* TODO REQUIRED: Add an Exit "east" to Room 0 */
-	/* TODO BASIC: Add exit shortcuts for "e" and "crack" */
-	Room_AddRoomExit(room, "east", 0);
-	Room_AddRoomExitShortcut(room, "e", 0);
-	Room_AddRoomExitShortcut(room, "crack", 0);
-	/* TODO REQUIRED: Add a gold piece to the list of items in the room */
-	ItemList_AddItem(Room_GetItemList(room), GoldPiece_Build());
+	Room_AddRoomExit(room, "south", 1);
+	Room_AddRoomExitShortcut(room, "s", 1);
+	
+	ItemList_AddItem(Room_GetItemList(room), Candleabra_Build());
 	/* return the new room */
 	return room;
 }
 
 
 /* TODO ADVANCED: Build room 3 */
+Room* Room3_Build()
+{
+	Room* room = NULL;
+
+	room = Room_Create("This is room 3. As you enter, a ghost flys out the wall and begins charging you, unleashing an otherworldly scream. Beside your feet, you see the hollow corpse of a knight.\n");
+
+	Room_AddRoomExit(room, "south", 1);
+	Room_AddRoomExitShortcut(room, "s", 1);
+	ItemList_AddItem(Room_GetItemList(room), KnightCorpse_Build());
+	ItemList_AddItem(Room_GetItemList(room), Sword_Build());
+	/* return the new room */
+	return room;
+}
 /* TODO ADVANCED: Build room 4 */
 
 
@@ -129,17 +137,16 @@ WorldData* CreateInitialWorldData()
 
 	/* TODO REQUIRED: update room count to match the number of rooms you have created and added to the world
 	   if this number doesn't match then your game will either crash or you will end up stuck in a broken room with no exits */
-	int roomCount = 3;
+	int roomCount = 4;
 
 	/* create the new WorldData object with 3 rooms */
 	worldData = WorldData_Create("Welcome to my GAM100 Game!\n\n", roomCount);
 
 	/* build each room and assign them to the world data */
 	WorldData_SetRoom(worldData, 0, Room0_Build());
-	/* TODO REQUIRED: add rooms 1 and 2 to the world data */
 	WorldData_SetRoom(worldData, 1, Room1_Build());
 	WorldData_SetRoom(worldData, 2, Room2_Build());
-	/* TODO ADVANCED: add additional advanced rooms */
+	WorldData_SetRoom(worldData, 3, Room3_Build());
 
 	/* return the new object */
 	return worldData;

@@ -20,7 +20,7 @@ This file defines the functions to create a specific item, the "brick".
 
 
 /* Helper: The action performed when the brick is taken. */
-void RustedKey_Take(CommandContext context, GameState* gameState, WorldData* worldData)
+void GoldKey_Take(CommandContext context, GameState* gameState, WorldData* worldData)
 {
 	/* avoid W4 warnings on unused parameters - this function conforms to a function typedef */
 	UNREFERENCED_PARAMETER(context);
@@ -33,7 +33,7 @@ void RustedKey_Take(CommandContext context, GameState* gameState, WorldData* wor
 
 
 /* Helper: The action performed when the brick is used. */
-void RustedKey_Use(CommandContext context, GameState* gameState, WorldData* worldData)
+void GoldKey_Use(CommandContext context, GameState* gameState, WorldData* worldData)
 {
 	Room* room; /* The current room */
 	ItemList** roomItemsPtr; /* The list of items in the current room */
@@ -90,7 +90,7 @@ void RustedKey_Use(CommandContext context, GameState* gameState, WorldData* worl
 
 		/* Add to the player's score */
 		GameState_ChangeScore(gameState, 10);
-		
+
 		/* Update the room description to reflect the change in the room */
 		Room_SetDescription(room, "This is room 0.  There is an unlocked prision door here.\n");
 
@@ -105,8 +105,8 @@ void RustedKey_Use(CommandContext context, GameState* gameState, WorldData* worl
 
 
 /* Build a "brick" object */
-Item* RustedKey_Build()
+Item* GoldKey_Build()
 {
 	/* Create a "brick" item, using the functions defined in this file */
-	return Item_Create("rusted key", "A small rusted and corroded key.", true, RustedKey_Use, RustedKey_Take, NULL);
+	return Item_Create("gold key", "A small rusted and corroded key.", true, GoldKey_Use, GoldKey_Take, NULL);
 }

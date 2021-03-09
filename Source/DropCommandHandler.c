@@ -17,7 +17,7 @@ the specified item from the user's inventory and adds it to the current room.
 #include "Room.h" /* Room_GetItemList */
 #include "ItemList.h" /* ItemList_FindItem, ItemList_Remove, ItemList_Add */
 #include "Item.h" /* ItemFunc, Item_GetDropFunc */
-
+#include "GameState.h"
 
 /* Handles the "drop" user command, which drops an item in inventory to the current room.*/
 void HandleDropCommand(CommandData *command, GameState* gameState, WorldData* worldData)
@@ -48,6 +48,7 @@ void HandleDropCommand(CommandData *command, GameState* gameState, WorldData* wo
 	{
 		/* if the item wasn't found, then the player doesn't have it so they can't drop it */
 		printf("You do not have a %s.\n", command->noun);
+		GameState_ChangeGhostPos(gameState, 1);
 		return;
 	}
 
@@ -59,7 +60,10 @@ void HandleDropCommand(CommandData *command, GameState* gameState, WorldData* wo
 
 	/* everything has succeeded, so output the result */
 	printf("You have dropped the %s.\n", command->noun);
-
+	if (gameState->currentRoomIndex != 3)
+		printf("");
+	else
+		GameState_ChangeGhostPos(gameState, 1);
 	/* get the "drop" function for this item, if any (it is optional) */
 	dropFunc = Item_GetDropFunc(droppedItem);
 	if (dropFunc != NULL)

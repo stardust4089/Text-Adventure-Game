@@ -49,6 +49,7 @@ void HandleTakeCommand(CommandData *command, GameState* gameState, WorldData* wo
 	{
 		/* the item was not found - inform the user of the problem and take no action */
 		printf("You do not see a %s here.\n", command->noun);
+		GameState_ChangeGhostPos(gameState, 1);
 		return;
 	}
 
@@ -57,6 +58,10 @@ void HandleTakeCommand(CommandData *command, GameState* gameState, WorldData* wo
 	{
 		/* the item is not carryable - inform the user of the problem and take no action */
 		printf("You cannot take the %s.\n", command->noun);
+		if (gameState->currentRoomIndex != 3)
+			printf("");
+		else
+			GameState_ChangeGhostPos(gameState, 1);
 		return;
 	}
 
@@ -68,7 +73,10 @@ void HandleTakeCommand(CommandData *command, GameState* gameState, WorldData* wo
 
 	/* inform the user of the successful action */
 	printf("You have picked up the %s.\n", command->noun);
-
+	if (gameState->currentRoomIndex != 3)
+		printf("");
+	else
+		GameState_ChangeGhostPos(gameState, 1);
 	/* get the "take" function for this item, if any (it is optional) */
 	takeFunc = Item_GetTakeFunc(takenItem);
 	if (takeFunc != NULL)

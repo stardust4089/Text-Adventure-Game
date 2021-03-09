@@ -130,11 +130,10 @@ bool GameFlags_IsInList(GameFlags* gameFlags, const char* flag)
 	}
 
 	/* check if this is the flag we're looking for */
-	if (strcmp(gameFlags->flag, flag) == 0) 
+	if (strcmp(gameFlags->flag, flag) == 0)
 	{
 		return true; /* it is!  we're done */
 	}
-
 	/* check the next flag in the list */
 	return GameFlags_IsInList(gameFlags->next, flag);
 }

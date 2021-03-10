@@ -86,10 +86,15 @@
   <ItemGroup>
     <ClInclude Include="Source\BronzeKeyFunctions.h" />
     <ClInclude Include="Source\Candleabra.h" />
+    <ClInclude Include="Source\Chest.h" />
     <ClInclude Include="Source\Corpse.h" />
+    <ClInclude Include="Source\Desk.h" />
+    <ClInclude Include="Source\DeskKeyFunctions.h" />
     <ClInclude Include="Source\GoldKeyFunctions.h" />
     <ClInclude Include="Source\KnightCorpse.h" />
     <ClInclude Include="Source\MirrorFunctions.h" />
+    <ClInclude Include="Source\NPC.h" />
+    <ClInclude Include="Source\Paper.h" />
     <ClInclude Include="Source\RustedKeyFunctions.h" />
     <ClInclude Include="Source\CommandContext.h" />
     <ClInclude Include="Source\CommandData.h" />
@@ -119,6 +124,7 @@
     <ClInclude Include="Source\stdafx.h" />
     <ClInclude Include="Source\Sword.h" />
     <ClInclude Include="Source\TakeCommandHandler.h" />
+    <ClInclude Include="Source\TalkCommandHandler.h" />
     <ClInclude Include="Source\targetver.h" />
     <ClInclude Include="Source\UseCommandHandler.h" />
     <ClInclude Include="Source\WorldData.h" />
@@ -129,10 +135,15 @@
     <ClCompile Include="main.c" />
     <ClCompile Include="Source\BronzeKeyFunctions.c" />
     <ClCompile Include="Source\Candleabra.c" />
+    <ClCompile Include="Source\Chest.c" />
     <ClCompile Include="Source\Corpse.c" />
+    <ClCompile Include="Source\Desk.c" />
+    <ClCompile Include="Source\DeskKeyFunctions.c" />
     <ClCompile Include="Source\GoldKeyFunctions.c" />
     <ClCompile Include="Source\KnightCorpse.c" />
     <ClCompile Include="Source\MirrorFunctions.c" />
+    <ClCompile Include="Source\NPC.c" />
+    <ClCompile Include="Source\Paper.c" />
     <ClCompile Include="Source\RustedKeyFunctions.c" />
     <ClCompile Include="Source\CommandHandler.c" />
     <ClCompile Include="Source\CommandList.c" />
@@ -157,6 +168,7 @@
     <ClCompile Include="Source\stdafx.c" />
     <ClCompile Include="Source\Sword.c" />
     <ClCompile Include="Source\TakeCommandHandler.c" />
+    <ClCompile Include="Source\TalkCommandHandler.c" />
     <ClCompile Include="Source\UseCommandHandler.c" />
     <ClCompile Include="Source\WorldData.c" />
     <ClCompile Include="WorldDataFactory.c" />

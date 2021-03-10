@@ -16,55 +16,35 @@ This file defines the functions to create a specific item, the "brick".
 #include "Room.h" /* Room_GetItemList, Room_SetDescription */
 #include "ItemList.h" /* ItemList_FindItem, ItemList_Remove, ItemList_Add */
 #include "Item.h" /* Item_Create */
-#include "EggFunctions.h" /* Egg_Build */
+#include "GoldPieceFunctions.h" /* Egg_Build */
 
 
 /* Helper: The action performed when the brick is taken. */
-void BronzeKey_Take(CommandContext context, GameState* gameState, WorldData* worldData)
+void Chest_Use(CommandContext context, GameState* gameState, WorldData* worldData)
 {
-	/* avoid W4 warnings on unused parameters - this function conforms to a function typedef */
 	UNREFERENCED_PARAMETER(context);
-	UNREFERENCED_PARAMETER(gameState);
-	UNREFERENCED_PARAMETER(worldData);
 
-	/* Give the user a hint about how the brick might be used, whenever it is picked up. */
-	printf("The key is polished and shines of bronze.\n");
-}
-
-
-/* Helper: The action performed when the brick is used. */
-void BronzeKey_Use(CommandContext context, GameState* gameState, WorldData* worldData)
-{
 	Room* room; /* The current room */
 	ItemList** roomItemsPtr; /* The list of items in the current room */
-	Item* brick; /* The brick in the player's inventory */
+
 	/* safety check on the parameters */
 	if ((gameState == NULL) || (worldData == NULL))
 	{
 		return; /* take no action if the parameters are invalid */
 	}
-
-	/* check if the user is using the brick out of their inventory */
-	if (context != CommandContext_Item_Inventory)
-	{
-		/* the user doesn't have the brick - inform the user of the problem and take no action */
-		printf("You must have a key before you can use it.\n");
-		return;
-	}
-
 	/* check if we're in the right room to use the item */
-	if (gameState->currentRoomIndex != 2)
+	if (gameState->currentRoomIndex != 4)
 	{
 		/* we are not in the right room - inform the user of the problem and take no action */
-		printf("You cannot use the key here.\n");
+		printf("There is no chest here.\n");
 		return;
 	}
 
 	/* check if the cage has already been broken and scored */
-	if (GameFlags_IsInList(gameState->gameFlags, "BronzeDoorOpened"))
+	if (GameFlags_IsInList(gameState->gameFlags, "ChestOpened"))
 	{
 		/* the player already used the brick - inform the user of the problem and take no action */
-		printf("You already used the key here.\n");
+		printf("You already opened the chest here.\n");
 		return;
 	}
 	else
@@ -80,30 +60,23 @@ void BronzeKey_Use(CommandContext context, GameState* gameState, WorldData* worl
 		}
 
 		/* Find the brick in the player's inventory - it should be there, since we are in the Inventory context */
-		brick = ItemList_FindItem(gameState->inventory, "brick");
-
-		/* Remove the brick from the user's inventory - they won't need it again */
-		gameState->inventory = ItemList_Remove(gameState->inventory, brick);
+		
 
 		/* Tell the user what they did */
-		printf("You insert the key into the lock. With a creaking and shuddering, the ancient lock clicks and the door swings open.\nYou may now use the east door.\n");
+		printf("You open up the old chest to find a single gold piece lying in the corner. It appears to have already been looted long before.\nYou may now take a gold piece.\n");
+		ItemList_AddItem(Room_GetItemList(room), GoldPiece_Build());
 
 		/* Add to the player's score */
 		GameState_ChangeScore(gameState, 10);
 
-		/* Add the exit door to the room, as now the cage in unlocked.*/
-		Room_AddRoomExit(room, "east", 5);
-		/* TODO BASIC: Add room exit shortcut for "n" */
-		Room_AddRoomExitShortcut(room, "e", 5);
 		/* the gold piece has not been scored, so mark the flag */
-		gameState->gameFlags = GameFlags_Add(gameState->gameFlags, "BronzeDoorOpened");
+		gameState->gameFlags = GameFlags_Add(gameState->gameFlags, "ChestOpened");
 	}
 }
 
-
 /* Build a "brick" object */
-Item* BronzeKey_Build()
+Item* Chest_Build()
 {
 	/* Create a "brick" item, using the functions defined in this file */
-	return Item_Create("bronze key", "A small rusted and corroded key.", true, BronzeKey_Use, BronzeKey_Take, NULL);
+	return Item_Create("chest", "It is an old and falling apart chest, sitting aimlessly in the corner.", false, Chest_Use, NULL, NULL);
 }

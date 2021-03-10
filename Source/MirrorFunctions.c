@@ -44,7 +44,7 @@ void Mirror_Use(CommandContext context, GameState* gameState, WorldData* worldDa
 	}
 
 	/* check if we're in the right room to use the item */
-	if (gameState->currentRoomIndex != 0)
+	if (gameState->currentRoomIndex != 6 || !GameFlags_IsInList(gameState->gameFlags, "DeskDrawerOpened"))
 	{
 		/* we are not in the right room - inform the user of the problem and take no action */
 		printf("The mirror has no new effect on these objects.\n");
@@ -56,13 +56,17 @@ void Mirror_Use(CommandContext context, GameState* gameState, WorldData* worldDa
 	{
 		/* get the current room */
 		room = WorldData_GetRoom(worldData, gameState->currentRoomIndex);
-
+		
 		/* get the list of items in the current room */
 		roomItemsPtr = Room_GetItemList(room);
+		
 		if (roomItemsPtr == NULL)
 		{
 			return; /* take no action, as something is wrong - we should always have an item list */
 		}
+
+		printf("As you pull out the mirror, you see the paper glimmer in its pristine veiw. Slowly, text begins to form on the paper. It reads: Always remember MADELINE");
+		gameState->gameFlags = GameFlags_Add(gameState->gameFlags, "PasswordDiscovered");
 	}
 }
 

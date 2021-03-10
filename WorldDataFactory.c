@@ -25,9 +25,12 @@ This could be used to create default states as well as loaded state.
 #include "KnightCorpse.h"
 #include "Sword.h"
 #include "GameState.h"
+#include "NPC.h"
+#include "Desk.h"
+#include "Chest.h"
 /******************************************************************************
 	Build room TEMPLATE
-    Use this example function to build additional rooms
+	Use this example function to build additional rooms
 ******************************************************************************/
 Room* RoomN_Build()
 {
@@ -115,7 +118,7 @@ Room* Room3_Build()
 {
 	Room* room = NULL;
 
-	room = Room_Create("This is room 3. As you enter, a ghost flys out the wall and begins charging you, unleashing an otherworldly scream. Beside your feet, you see the hollow corpse of a knight.\n");
+	room = Room_Create("As you enter, a ghost flies out the wall and begins charging you, unleashing an otherworldly scream. Beside your feet, you see the hollow corpse of a knight.\n");
 
 	Room_AddRoomExit(room, "south", 1);
 	Room_AddRoomExitShortcut(room, "s", 1);
@@ -125,6 +128,79 @@ Room* Room3_Build()
 	return room;
 }
 /* TODO ADVANCED: Build room 4 */
+Room* Room4_Build()
+{
+	Room* room = NULL;
+
+	room = Room_Create("Within this room, you see a tall dark oak door that in another time may have been farily ornate, though is rotten now. You also see a large chest in the corner of the room.\n");
+
+	Room_AddRoomExit(room, "south", 2);
+	Room_AddRoomExitShortcut(room, "s", 2);
+	ItemList_AddItem(Room_GetItemList(room), Chest_Build());
+	Room_AddRoomExit(room, "north", 6);
+	Room_AddRoomExitShortcut(room, "through oaken door", 6);
+	/* return the new room */
+	return room;
+}
+
+Room* Room5_Build()
+{
+	Room* room = NULL;
+
+	room = Room_Create("You head up a set of stairs that leads onto a sort of staging area. Within lies a large door with no visible lock, doorknob, or keyhole.\n");
+
+	Room_AddRoomExit(room, "south", 2);
+	Room_AddRoomExitShortcut(room, "s", 2);
+	//ADD EXIT DOOR ONE THAT NEEDS PLAYER TO SPEAK THE PASSWORD OUT LOUD.
+	Room_AddRoomExit(room, "east", 7);
+	Room_AddRoomExitShortcut(room, "e", 7);
+	Room_AddRoomExit(room, "west", 6);
+	Room_AddRoomExitShortcut(room, "w", 6);
+	/* return the new room */
+	
+	return room;
+}
+
+Room* Room6_Build()
+{
+	Room* room = NULL;
+
+	room = Room_Create("Making your way through the holes in the old rotten door, you find yourslef in a small library. Around you are bookshelves with old deteritating leatherbound titles, and a anceint desk sitting in the center.\n");
+
+	Room_AddRoomExit(room, "south", 4);
+	Room_AddRoomExitShortcut(room, "s", 4);
+	ItemList_AddItem(Room_GetItemList(room), Desk_Build());
+	Room_AddRoomExit(room, "east", 5);
+	Room_AddRoomExitShortcut(room, "e", 5);
+	/* return the new room */
+	return room;
+}
+Room* Room7_Build()
+{
+	Room* room = NULL;
+
+	room = Room_Create("You appear to enter some sort of laboratory. Around you are beakers, wires, strange metal rods, and other alchemical supplies. In the corner is a very hold man with his head in his hands in curled up and shuddering.\n");
+
+	Room_AddRoomExit(room, "west", 5);
+	//ADD NPC
+	ItemList_AddItem(Room_GetItemList(room), NPC_Build());
+
+	/* return the new room */
+	return room;
+}
+Room* Room8_Build()
+{
+	Room* room = NULL;
+
+	room = Room_Create("You pass through the golden door to find yourself facing another door that looks as thoguh it belongs to a large vault door. In the center is a large golden keyhole.\n");
+
+	Room_AddRoomExit(room, "south", 3);
+	//ADD GOLDEN KEY DOOR. ONCE PLAYER OPENS IT THEY WIN.
+
+
+	/* return the new room */
+	return room;
+}
 
 
 /* ------------------------------------------------------- */
@@ -137,17 +213,23 @@ WorldData* CreateInitialWorldData()
 
 	/* TODO REQUIRED: update room count to match the number of rooms you have created and added to the world
 	   if this number doesn't match then your game will either crash or you will end up stuck in a broken room with no exits */
-	int roomCount = 4;
+	int roomCount = 9;
 
 	/* create the new WorldData object with 3 rooms */
 	worldData = WorldData_Create("Welcome to my GAM100 Game!\n\n", roomCount);
 
 	/* build each room and assign them to the world data */
+	
 	WorldData_SetRoom(worldData, 0, Room0_Build());
 	WorldData_SetRoom(worldData, 1, Room1_Build());
 	WorldData_SetRoom(worldData, 2, Room2_Build());
 	WorldData_SetRoom(worldData, 3, Room3_Build());
-
+	WorldData_SetRoom(worldData, 4, Room4_Build());
+	WorldData_SetRoom(worldData, 5, Room5_Build());
+	WorldData_SetRoom(worldData, 6, Room6_Build());
+	WorldData_SetRoom(worldData, 7, Room7_Build());
+	WorldData_SetRoom(worldData, 8, Room8_Build());
+	
 	/* return the new object */
 	return worldData;
 }

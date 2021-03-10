@@ -71,7 +71,9 @@ CommandList* CreateCommandList()
 	CommandList_Add(cmdListPtr, "g", HandleGoCommand, false);
 
 	/* TODO ADVANCED: create aditional commands*/
-	/* this should require the creation of additional .c files to implement the command functions */
+	/* TODO REQUIRED: create the "go" command*/
+	CommandList_Add(cmdListPtr, "talk", HandleTalkCommand, true);
+
 
 	/* return the newly created command list */
 	return commandList;

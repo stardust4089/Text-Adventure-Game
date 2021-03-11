@@ -156,7 +156,7 @@ Room* Room5_Build()
 	Room_AddRoomExitShortcut(room, "e", 7);
 	Room_AddRoomExit(room, "west", 6);
 	Room_AddRoomExitShortcut(room, "w", 6);
-	/* return the new room */
+	ItemList_AddItem(Room_GetItemList(room), ExitDoor_Build());
 	
 	return room;
 }
@@ -165,7 +165,7 @@ Room* Room6_Build()
 {
 	Room* room = NULL;
 
-	room = Room_Create("Making your way through the holes in the old rotten door, you find yourslef in a small library. Around you are bookshelves with old deteritating leatherbound titles, and a anceint desk sitting in the center.\n");
+	room = Room_Create("Making your way through the holes in the old rotten door, you find yourself in a small library. Around you are bookshelves with old deteritating leatherbound titles, and a anceint desk sitting in the center.\n");
 
 	Room_AddRoomExit(room, "south", 4);
 	Room_AddRoomExitShortcut(room, "s", 4);
@@ -194,9 +194,7 @@ Room* Room8_Build()
 
 	room = Room_Create("You pass through the golden door to find yourself facing another door that looks as thoguh it belongs to a large vault door. In the center is a large golden keyhole.\n");
 
-	Room_AddRoomExit(room, "south", 3);
-	//ADD GOLDEN KEY DOOR. ONCE PLAYER OPENS IT THEY WIN.
-
+	Room_AddRoomExit(room, "south", 5);
 
 	/* return the new room */
 	return room;

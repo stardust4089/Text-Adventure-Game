@@ -9,40 +9,36 @@ This file defines the functions to create a specific item, the "exit door".
 
 ******************************************************************************/
 #include "stdafx.h" /* NULL, UNREFERENCED_PARAMETER */
+#include <stdio.h>
 #include "ExitDoorFunctions.h" /* Function declarations */
 #include "GameState.h" /* struct GameState, GameState_EndGame */
 #include "ItemList.h" /* ItemList_FindItem */
 #include "Item.h" /* Item_Create */
-
+#include "Room.h"
+#include "RoomExit.h"
+#include "WorldData.h"
 typedef struct WorldData WorldData;
 
+#define MAX_LIMIT 9 
 
 /* Helper: The action performed when the exit door is used. */
 void ExitDoor_Use(CommandContext context, GameState* gameState, WorldData* worldData)
 {
-	Item* goldPiece; /* the gold piece in the user's inventory */
-	Item* egg; /* the egg in the user's inventory */
-
+	Room* room;
 	/* avoid W4 warnings on unused parameters - this function conforms to a function typedef */
 	UNREFERENCED_PARAMETER(context);
 	UNREFERENCED_PARAMETER(worldData);
 
-	/* find the gold piece in the user's inventory */
-	goldPiece = ItemList_FindItem(gameState->inventory, "gold piece");
-
-	/* find the egg in the user's inventory */
-	egg = ItemList_FindItem(gameState->inventory, "egg");
-
-	/* check if both items are in the user's inventory */
-	if ((egg == NULL) || (goldPiece == NULL))
+	printf("A voice rumbles in your mind. \"To continue to the foyer, you must provide the unforgettable password\"\nWhat is the password? ");
+	
+	char str[MAX_LIMIT];
+	fgets(str, MAX_LIMIT, stdin);
+	if (strcmp(str, "madeline") == 0)
 	{
-		/* both items were not found - tell the user about the problem and take no further action */
-		printf("You must keep searching for more treasures before you can exit!\n");
-		return;
+		room = WorldData_GetRoom(worldData, gameState->currentRoomIndex);
+		printf("After speaking the password, the large door opens. You may now move north.\n");
+		Room_AddRoomExit(room, "north", 8);
 	}
-
-	/* the user has won the game! end the game, and let them know what happened. */
-	GameState_EndGame(gameState, "Congratulations!  You leave with all of the treasures, and you win the game!\n");
 }
 
 
@@ -50,5 +46,5 @@ void ExitDoor_Use(CommandContext context, GameState* gameState, WorldData* world
 Item* ExitDoor_Build()
 {
 	/* Create a "exit door" item, using the functions defined in this file */
-	return Item_Create("exit door", "The exit door has a large sign that reads: \"YOU MUST POSSESS ALL TREASURES BEFORE YOU CAN EXIT.\".\n", false, ExitDoor_Use, NULL, NULL);
+	return Item_Create("exit door", "a large door with no visible lock, doorknob, or keyhole.\n", false, ExitDoor_Use, NULL, NULL);
 }

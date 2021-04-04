@@ -85,7 +85,7 @@ void GoldKey_Use(CommandContext context, GameState* gameState, WorldData* worldD
 		GameState_ChangeScore(gameState, 30);
 		/* the gold piece has not been scored, so mark the flag */
 		gameState->gameFlags = GameFlags_Add(gameState->gameFlags, "GameWon");
-		GameState_EndGame(gameState, "All content © 2021 DigiPen (USA) Corporation, all rights reserved\nCreated By Thomas Allen\n\nTeacher: Ryan Scheppler\n");
+		GameState_EndGame(gameState, "All content © 2021 DigiPen (USA) Corporation, all rights reserved\nCreated By Thomas Allen\n\nTeacher: Ryan Scheppler\nc");
 	}
 }
 

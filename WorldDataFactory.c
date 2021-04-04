@@ -165,7 +165,7 @@ Room* Room6_Build()
 {
 	Room* room = NULL;
 
-	room = Room_Create("Making your way through the holes in the old rotten door, you find yourself in a small library. Around you are bookshelves with old deteritating leatherbound titles, and a anceint desk sitting in the center.\n");
+	room = Room_Create("Making your way through the holes in the old rotten door, you find yourself in a small library. Around you are bookshelves with old deterioriating leatherbound titles, and a ancient desk sitting in the center.\n");
 
 	Room_AddRoomExit(room, "south", 4);
 	Room_AddRoomExitShortcut(room, "s", 4);
@@ -179,7 +179,7 @@ Room* Room7_Build()
 {
 	Room* room = NULL;
 
-	room = Room_Create("You appear to enter some sort of laboratory. Around you are beakers, wires, strange metal rods, and other alchemical supplies. In the corner is a very hold man with his head in his hands in curled up and shuddering.\n");
+	room = Room_Create("You appear to enter some sort of laboratory. Around you are beakers, wires, strange metal rods, and other alchemical supplies. In the corner is a very old man with his head in his hands in curled up and shuddering.\n");
 
 	Room_AddRoomExit(room, "west", 5);
 	//ADD NPC
@@ -192,7 +192,7 @@ Room* Room8_Build()
 {
 	Room* room = NULL;
 
-	room = Room_Create("You pass through the golden door to find yourself facing another door that looks as thoguh it belongs to a large vault door. In the center is a large golden keyhole.\n");
+	room = Room_Create("You pass through the golden arch to find yourself facing another door that looks as though it belongs to a vault. In the center is a large golden keyhole.\n");
 
 	Room_AddRoomExit(room, "south", 5);
 
